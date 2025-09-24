@@ -40,19 +40,28 @@ if uploaded_file is not None:
 
     # Step 4: Show Model Performance (Confusion Matrix)
     cm_train = confusion_matrix(y_train, y_train_pred)
-    fig, ax = plt.subplots()
-    ax.imshow(cm_train, interpolation='nearest', cmap=plt.cm.Blues)
+    
+    # Improved visualization with better color contrast
+    fig, ax = plt.subplots(figsize=(6, 5))  # Adjust figure size for better visibility
+    cax = ax.imshow(cm_train, interpolation='nearest', cmap='coolwarm')  # Changed colormap to 'coolwarm'
+    
+    # Add color bar for better clarity
+    fig.colorbar(cax)
+
     ax.set_title('Confusion Matrix (Training Data)')
     ax.set_xlabel('Predicted label')
     ax.set_ylabel('True label')
+    
+    # Set ticks and labels
     ax.set_xticks(np.arange(2))
     ax.set_yticks(np.arange(2))
     ax.set_xticklabels(['Survived', 'Died'])
     ax.set_yticklabels(['Survived', 'Died'])
 
+    # Annotate confusion matrix with text and adjust text color for contrast
     for i in range(2):
         for j in range(2):
-            ax.text(j, i, cm_train[i, j], ha="center", va="center", color="white")
+            ax.text(j, i, cm_train[i, j], ha="center", va="center", color="white", fontsize=14)
 
     st.pyplot(fig)
 
@@ -75,18 +84,25 @@ if uploaded_file is not None:
 
         # Show confusion matrix for the test data
         cm_test = confusion_matrix(y_test_data, y_test_pred)
-        fig, ax = plt.subplots()
-        ax.imshow(cm_test, interpolation='nearest', cmap=plt.cm.Blues)
+        fig, ax = plt.subplots(figsize=(6, 5))  # Adjust figure size for better visibility
+        cax = ax.imshow(cm_test, interpolation='nearest', cmap='coolwarm')  # Changed colormap to 'coolwarm'
+
+        # Add color bar for better clarity
+        fig.colorbar(cax)
+
         ax.set_title('Confusion Matrix (Test Data)')
         ax.set_xlabel('Predicted label')
         ax.set_ylabel('True label')
+        
+        # Set ticks and labels
         ax.set_xticks(np.arange(2))
         ax.set_yticks(np.arange(2))
         ax.set_xticklabels(['Survived', 'Died'])
         ax.set_yticklabels(['Survived', 'Died'])
 
+        # Annotate confusion matrix with text and adjust text color for contrast
         for i in range(2):
             for j in range(2):
-                ax.text(j, i, cm_test[i, j], ha="center", va="center", color="white")
+                ax.text(j, i, cm_test[i, j], ha="center", va="center", color="white", fontsize=14)
 
         st.pyplot(fig)
